@@ -36,9 +36,6 @@ if (argv.h) {
     process.exit(0);
 }
 
-console.log('p:' + argv.p);
-console.log('a:' + argv.a);
-
 var prefix = argv.p || '';
 var postfix = argv.a || '';
 var lines = [];

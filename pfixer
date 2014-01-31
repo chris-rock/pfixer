@@ -1,0 +1,87 @@
+#!/usr/bin/env node
+
+var fs = require('fs'),
+    path = require('path'),
+    readline = require('readline');
+
+var optimist = require('optimist');
+
+var argv = optimist
+    .usage('prefix and postfix text input from cli or files.\nUsage: $0')
+    .options('f', {
+        'alias': 'file',
+        'describe': 'Load a file'
+    })
+    .options('i', {
+        'alias': 'input',
+        'describe': 'input from cli'
+    })
+    .options('p', {
+        'alias': 'prepend',
+        'describe': 'text that will be prepended'
+    })
+    .options('a', {
+        'alias': 'append',
+        'describe': 'text that will be appended'
+    })
+    .options('h', {
+        'alias': 'help',
+        'describe': 'outputs this help'
+    })
+    .argv;
+
+// return help
+if (argv.h) {
+    optimist.showHelp();
+    process.exit(0);
+}
+
+console.log('p:' + argv.p);
+console.log('a:' + argv.a);
+
+var prefix = argv.p || '';
+var postfix = argv.a || '';
+var lines = [];
+var rl = null;
+
+function output() {
+    console.log('output:\n');
+    lines.forEach(function (line) {
+        console.log(prefix + line + postfix);
+    });
+}
+
+// check if we load text from cli
+if (argv.i) {
+    // rl for user input
+    rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    rl.on('SIGINT', function () {
+        output();
+        rl.pause();
+    });
+} else if (argv.f) {
+
+    // resolve file path
+    var file = path.resolve(argv.f);
+
+    // rl for file input
+    rl = readline.createInterface({
+        input: fs.createReadStream(file),
+        output: process.stdout,
+        terminal: false
+    });
+
+    rl.on('close', function () {
+        output();
+        process.exit(0);
+    });
+}
+
+if (rl) {
+    rl.on('line', function (line) {
+        lines.push(line);
+    });
+}

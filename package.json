@@ -1,7 +1,7 @@
 {
   "name": "pfixer",
   "description": "prefix and postfix text input from cli or files",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "bin": {
     "pfixer": "./pfixer"
@@ -22,16 +22,10 @@
   "dependencies": {
     "optimist": "~0.6.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "scripts": {},
   "engines": {
     "node": "0.10.x",
     "npm": "1.2.x"
   }
 }
-
-
-
-
-

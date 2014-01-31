@@ -1,7 +1,7 @@
 {
   "name": "pfixer",
   "description": "prefix and postfix text input from cli or files",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "bin": {
     "pfixer": "./pfixer"
